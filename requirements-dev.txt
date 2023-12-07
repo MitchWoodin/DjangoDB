@@ -1,1 +1,3 @@
+factory-boy
 pip-tools
+pytest-django
