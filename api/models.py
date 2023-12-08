@@ -3,6 +3,11 @@ import uuid
 from django.db import models
 
 
+def is_dependency_asset():
+    # TODO: write a check to make sure dependencies are assets
+    pass
+
+
 class Asset(models.Model):
     uid = models.UUIDField(max_length=255, default=uuid.uuid4, unique=True)
     path = models.CharField(max_length=255, unique=True)
