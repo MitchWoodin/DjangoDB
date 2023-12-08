@@ -20,6 +20,9 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, []),
     CSRF_COOKIE_SECURE=(bool, True),
     DEBUG=(bool, False),
+    SECURE_HSTS_SECONDS=(int, 60 * 60 * 24 * 365),
+    SECURE_SSL_REDIRECT=(bool, True),
+    SESSION_COOKIE_SECURE=(bool, True),
 )
 
 environ.Env.read_env(BASE_DIR / ".env")
@@ -130,6 +133,9 @@ USE_TZ = True
 
 # Security
 CSRF_COOKIE_SECURE = env("CSRF_COOKIE_SECURE")
+SECURE_HSTS_SECONDS = env("SECURE_HSTS_SECONDS")
+SECURE_SSL_REDIRECT = env("SECURE_SSL_REDIRECT")
+SESSION_COOKIE_SECURE = env("SESSION_COOKIE_SECURE")
 
 
 # Static files (CSS, JavaScript, Images)
