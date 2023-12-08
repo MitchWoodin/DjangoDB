@@ -1,4 +1,4 @@
-factory-boy
+factory-boy==3.3.0
 pip-tools
 pytest-cov==4.1.0
 pytest-django==4.7.0
