@@ -29,10 +29,11 @@ jobs:
       - name: Run tests
         run: make coverage
 
+      - name: Make manage.py executable
+        run: chmod +x manage.py
+
       - name: Check deploy config
-        run: |
-          chmod +x manage.py
-          ./manage.py check --deploy --fail-level WARNING
+        run: ./manage.py check --deploy --fail-level WARNING
         env:
           DATABASE_URL: 'sqlite://:memory:'
           SECRET_KEY: 'zt(6jlr#oquxm2t%ryh#n+-72p^(3knbf&q$5x16#o%1im-s7!'
