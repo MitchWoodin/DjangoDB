@@ -21,9 +21,7 @@ jobs:
           cache-dependency-path: 'requirements*.txt'
 
       - name: Install OS packages
-        run: |
-          sudo apt install \
-          python3-dev
+        run: sudo apt install python3-dev
 
       - name: Install Python packages
         run: pip install -r requirements.txt -r requirements-dev.txt
@@ -32,7 +30,9 @@ jobs:
         run: make coverage
 
       - name: Check deploy config
-        run: ./manage.py check --deploy --fail-level WARNING
+        run: |
+          chmod +x manage.py
+          ./manage.py check --deploy --fail-level WARNING
         env:
           DATABASE_URL: 'sqlite://:memory:'
           SECRET_KEY: 'zt(6jlr#oquxm2t%ryh#n+-72p^(3knbf&q$5x16#o%1im-s7!'
