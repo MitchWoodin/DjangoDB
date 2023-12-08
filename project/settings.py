@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
     ALLOWED_HOSTS=(list, []),
+    CSRF_COOKIE_SECURE=(bool, True),
     DEBUG=(bool, False),
 )
 
@@ -125,6 +126,10 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+
+# Security
+CSRF_COOKIE_SECURE = env("CSRF_COOKIE_SECURE")
 
 
 # Static files (CSS, JavaScript, Images)
