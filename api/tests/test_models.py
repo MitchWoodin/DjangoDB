@@ -14,6 +14,9 @@ class TestAsset:
 
         # TODO: Test items not in Factory
 
+    def test_dependencies(self):
+        # TODO: Test whether dependencies exist. If so is the JSON data accurate. 
+
 
 class TestReview:
     def test_factory(self):
