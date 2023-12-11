@@ -5,7 +5,7 @@ class AssetFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = "api.Asset"
 
-    uid = factory.Faker("uuid4")
+    id = factory.Faker("uuid4")
     asset_type = factory.Faker("word")
     created_by = factory.Faker("name")
     path = factory.Faker("file_path")
@@ -17,7 +17,7 @@ class ReviewFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = "api.Review"
 
-    uid = factory.Faker("uuid4")
+    id = factory.Faker("uuid4")
     path = factory.Faker("file_path")
     name = factory.Faker("file_name")
     shot = factory.Faker("file_name")

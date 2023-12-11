@@ -9,7 +9,13 @@ def dependency_check():
 
 
 class Asset(models.Model):
-    uid = models.UUIDField(max_length=255, default=uuid.uuid4, unique=True)
+    id = models.UUIDField(
+        primary_key=True,
+        max_length=255,
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+    )
     path = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     asset_type = models.CharField(max_length=255)
@@ -22,7 +28,9 @@ class Asset(models.Model):
 
 
 class Review(models.Model):
-    uid = models.UUIDField(max_length=255, default=uuid.uuid4, unique=True)
+    id = models.UUIDField(
+        primary_key=True, max_length=255, default=uuid.uuid4, unique=True
+    )
     path = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     asset_type = models.CharField(max_length=255)
@@ -36,7 +44,9 @@ class Review(models.Model):
 
 
 class Pack(models.Model):
-    uid = models.UUIDField(max_length=255, default=uuid.uuid4, unique=True)
+    id = models.UUIDField(
+        primary_key=True, max_length=255, default=uuid.uuid4, unique=True
+    )
     name = models.CharField(max_length=255)
     pack_type = models.CharField(max_length=255)
     contents = models.JSONField("Contents", null=True)

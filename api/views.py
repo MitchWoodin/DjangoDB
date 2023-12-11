@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics, status
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,25 +12,37 @@ from .serializers import (
 )
 
 
-class AssetView(generics.ListAPIView):
+class AssetViewSet(viewsets.ViewSet):
+    """API endpoint that allows assets to be viewed or edited."""
+
     queryset = Asset.objects.all()
-    serializer_class = AssetSerializer
 
+    def list(self, request):
+        serializer = AssetSerializer(self.queryset, many=True)
+        return Response(serializer.data)
 
-class CreateAssetView(APIView):
-    def post(self, request):
+    def create(self, request):
         serializer = CreateAssetSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
-class ReviewView(generics.ListAPIView):
+class ReviewViewSet(viewsets.ViewSet):
+    """API endpoint that allows reviews to be viewed or edited."""
+
     queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
+
+    def list(self, request):
+        serializer = ReviewSerializer(self.queryset, many=True)
+        return Response(serializer.data)
 
 
-class PackView(generics.ListAPIView):
+class PackViewSet(viewsets.ViewSet):
+    """API endpoint that allows packs to be viewed or edited."""
+
     queryset = Pack.objects.all()
-    serializer_class = PackSerializer
+
+    def list(self, request):
+        serializer = PackSerializer(self.queryset, many=True)
+        return Response(serializer.data)

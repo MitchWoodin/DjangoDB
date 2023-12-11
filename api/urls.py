@@ -1,8 +1,11 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+
 from . import views
 
-urlpatterns = [
-    path("asset/", views.AssetView.as_view(), name="apiAsset"),
-    path("review/", views.ReviewView.as_view(), name="apiReview"),
-    path("pack/", views.PackView.as_view(), name="apiPack"),
-]
+router = DefaultRouter()
+router.register(r"asset", views.AssetViewSet, basename="assetAPI")
+router.register(r"review", views.ReviewViewSet, basename="reviewAPI")
+router.register(r"pack", views.PackViewSet, basename="packAPI")
+
+urlpatterns = router.urls

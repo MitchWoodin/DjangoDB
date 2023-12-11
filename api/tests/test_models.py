@@ -10,7 +10,7 @@ class TestAsset:
 
         assert asset is not None
 
-        assert asset.uid != ""
+        assert asset.id != ""
         assert asset.path != ""
         assert asset.name != ""
         assert asset.asset_type != ""
@@ -21,17 +21,17 @@ class TestAsset:
     def test_dependencies(self):
         asset = AssetFactory()
         sub_factories = AssetFactory.create_batch(2)
-        sub_one_uid = sub_factories[0].uid
-        sub_two_uid = sub_factories[1].uid
-        asset.dependencies = str({"assets": [sub_one_uid, sub_two_uid]})
+        sub_one_id = sub_factories[0].id
+        sub_two_id = sub_factories[1].id
+        asset.dependencies = str({"assets": [sub_one_id, sub_two_id]})
 
         json_convert = asset.dependencies.replace("'", '"')
 
         json_data = json.loads(json_convert)
 
         assert str(asset.dependencies) != ""
-        assert json_data["assets"][0] == sub_factories[0].uid
-        assert json_data["assets"][1] == sub_factories[1].uid
+        assert json_data["assets"][0] == sub_factories[0].id
+        assert json_data["assets"][1] == sub_factories[1].id
 
     def test_string_name(self):
         asset = AssetFactory()
@@ -45,7 +45,7 @@ class TestReview:
 
         assert review is not None
 
-        assert review.uid != ""
+        assert review.id != ""
         assert review.path != ""
         assert review.name != ""
         assert review.asset_type != ""
