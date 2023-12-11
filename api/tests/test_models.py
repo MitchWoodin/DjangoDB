@@ -1,4 +1,7 @@
+import json
+
 from api.tests.factories import AssetFactory, ReviewFactory, PackFactory
+from conftest import aaa_db
 
 
 class TestAsset:
@@ -7,12 +10,33 @@ class TestAsset:
 
         assert asset is not None
 
+        assert asset.uid != ""
         assert asset.path != ""
         assert asset.name != ""
         assert asset.asset_type != ""
         assert asset.created_by != ""
 
         # TODO: Test items not in Factory
+
+    def test_dependencies(self):
+        asset = AssetFactory()
+        sub_factories = AssetFactory.create_batch(2)
+        sub_one_uid = sub_factories[0].uid
+        sub_two_uid = sub_factories[1].uid
+        asset.dependencies = str({"assets": [sub_one_uid, sub_two_uid]})
+
+        json_convert = asset.dependencies.replace("'", '"')
+
+        json_data = json.loads(json_convert)
+
+        assert str(asset.dependencies) != ""
+        assert json_data["assets"][0] == sub_factories[0].uid
+        assert json_data["assets"][1] == sub_factories[1].uid
+
+    def test_string_name(self):
+        asset = AssetFactory()
+
+        assert str(asset) == asset.name
 
 
 class TestReview:
@@ -21,6 +45,7 @@ class TestReview:
 
         assert review is not None
 
+        assert review.uid != ""
         assert review.path != ""
         assert review.name != ""
         assert review.asset_type != ""
@@ -28,6 +53,11 @@ class TestReview:
         assert review.shot != ""
 
         # TODO: Test items not in Factory
+
+    def test_string_name(self):
+        review = ReviewFactory()
+
+        assert str(review) == review.name
 
 
 class TestPack:
@@ -41,3 +71,8 @@ class TestPack:
         assert pack.contents != ""
 
         # TODO: Test items not in Factory
+
+    def test_string_name(self):
+        pack = PackFactory()
+
+        assert str(pack) == pack.name
