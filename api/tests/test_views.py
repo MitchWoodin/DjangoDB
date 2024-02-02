@@ -1,12 +1,12 @@
 import factory
 
-from api.tests.factories import AssetFactory
+from api.tests.factories import AssetFactory, PackFactory
 from django.contrib.admin.options import json
 from django.urls import reverse
 from rest_framework.test import APIClient
 
-from ..views import AssetViewSet, PackViewSet
-from ..models import Asset
+from ..views import AssetViewSet, ReviewViewSet, PackViewSet
+from ..models import Asset, Review
 
 
 class TestAssetViewset:
@@ -44,14 +44,20 @@ class TestAssetViewset:
 
         response = view(request).render()
 
-        assert response.status_code == 200  # TODO: Check status code is 201
+        assert response.status_code == 200  # TODO: Check status code 201
         assert json.loads(response.content) == valid_data
 
 
 class TestPackView:
-    url = "/api/pack/"
+    def test_pack_view_list(self, rf):
+        url = reverse("packAPI-list")
+        request = rf.get(url)
 
-    def test_pack_view_response(self):
-        response = APIClient().get(self.url)
+        packs = PackFactory.create_batch(10)
+
+        view = PackViewSet.as_view({"get": "list"})
+        response = view(request).render()
 
         assert response.status_code == 200
+        assert len(json.loads(response.content)) == 10
+        assert json.loads(response.content)[0]["name"] == packs[0].name

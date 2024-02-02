@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Asset, Pack
+from .models import Asset, Review, Pack
 from .serializers import (
     AssetSerializer,
     CreateAssetSerializer,
@@ -24,6 +24,16 @@ class AssetViewSet(viewsets.ViewSet):
         serializer = CreateAssetSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        return Response(serializer.data)
+
+
+class ReviewViewSet(viewsets.ViewSet):
+    """API endpoint that allows reviews to be viewed or edited."""
+
+    queryset = Review.objects.all()
+
+    def list(self, request):
+        serializer = ReviewSerializer(self.queryset, many=True)
         return Response(serializer.data)
 
 

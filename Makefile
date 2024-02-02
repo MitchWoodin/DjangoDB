@@ -1,4 +1,5 @@
 coverage:
+	@echo "Running coverage check"
 	pytest --cov=api --migrations -n 2 --dist loadfile
 
 

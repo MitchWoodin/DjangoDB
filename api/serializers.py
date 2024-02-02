@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Asset, Pack
+from .models import Asset, Review, Pack
 
 
 class AssetSerializer(serializers.ModelSerializer):
@@ -15,6 +15,18 @@ class CreateAssetSerializer(serializers.ModelSerializer):
             "path",
             "name",
             "asset_type",
+            "created_by",
+            "dependencies",
+        )
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = (
+            "path",
+            "name",
+            "review_type",
             "created_by",
             "dependencies",
         )
