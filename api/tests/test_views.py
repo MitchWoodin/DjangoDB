@@ -1,6 +1,6 @@
 import factory
 
-from api.tests.factories import AssetFactory, PackFactory
+from api.tests.factories import AssetFactory, ReviewFactory, PackFactory
 from django.contrib.admin.options import json
 from django.urls import reverse
 from rest_framework.test import APIClient
@@ -46,6 +46,21 @@ class TestAssetViewset:
 
         assert response.status_code == 200  # TODO: Check status code 201
         assert json.loads(response.content) == valid_data
+
+
+class TestReviewView:
+    def test_review_view_list(self, rf):
+        url = reverse("reviewAPI-list")
+        request = rf.get(url)
+
+        reviews = ReviewFactory.create_batch(10)
+
+        view = ReviewViewSet.as_view({"get": "list"})
+        response = view(request).render()
+
+        assert response.status_code == 200
+        assert len(json.loads(response.content)) == 10
+        assert json.loads(response.content)[0]["name"] == reviews[0].name
 
 
 class TestPackView:

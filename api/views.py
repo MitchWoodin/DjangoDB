@@ -7,6 +7,7 @@ from .models import Asset, Review, Pack
 from .serializers import (
     AssetSerializer,
     CreateAssetSerializer,
+    ReviewSerializer,
     PackSerializer,
 )
 

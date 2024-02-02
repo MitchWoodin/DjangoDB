@@ -5,6 +5,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r"asset", views.AssetViewSet, basename="assetAPI")
+router.register(r"review", views.ReviewViewSet, basename="reviewAPI")
 router.register(r"pack", views.PackViewSet, basename="packAPI")
 
 urlpatterns = router.urls
