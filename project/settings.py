@@ -17,6 +17,7 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL=(str, "https"),
     ALLOWED_HOSTS=(list, []),
     CSRF_COOKIE_SECURE=(bool, True),
     DEBUG=(bool, False),
